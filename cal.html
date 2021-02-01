@@ -1,0 +1,102 @@
+<html>
+<head>
+    <title>Simple JS Calculator</title>
+    <style>
+        table {
+            /*border-collapse: collapse;*/
+            border-spacing: 0;
+            padding: 0.6em;
+            border: 3px solid lightgrey;
+            background-color: rgb(53, 78, 128);
+        }
+        td {
+            padding: 0;
+            width: 25%;
+        }
+        .tar {
+            text-align: right;
+        }
+        table tr:nth-child(n+3) td:last-child input {
+            background-color: #ff8e32;
+            color: white;
+            font-weight: bold;
+        }
+        table tr:nth-child(n+3) td:not(:last-child) input {
+            background-color: rgb(238, 238, 238);
+            color: black;
+        }
+        input {
+            width: 100%;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="4"><input class="tar" type="text" id="history" disabled></td>
+        </tr>
+        <tr>
+            <td colspan="4"><input class="tar" type="text" id="text" readonly></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="C" onclick="empty()"></td>
+            <td><input type="button" value="±" onclick="convert()"></td>
+            <td><input type="button" value="del" onclick="del()"></td>
+            <td><input type="button" value="÷" onclick="input('/')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick="input('7')"></td>
+            <td><input type="button" value="8" onclick="input('8')"></td>
+            <td><input type="button" value="9" onclick="input('9')"></td>
+            <td><input type="button" value="×" onclick="input('*')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick="input('4')"></td>
+            <td><input type="button" value="5" onclick="input('5')"></td>
+            <td><input type="button" value="6" onclick="input('6')"></td>
+            <td><input type="button" value="-" onclick="input('-')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1" onclick="input('1')"></td>
+            <td><input type="button" value="2" onclick="input('2')"></td>
+            <td><input type="button" value="3" onclick="input('3')"></td>
+            <td><input type="button" value="+" onclick="input('+')"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" value="0" onclick="input('0')"></td>
+            <td><input type="button" value="." onclick="input('.')"></td>
+            <td><input type="button" value="=" onclick="count()"></td>
+        </tr>
+    </table>
+</body>
+<script>
+    function input(val){
+        if(val == "+" || val == "-" || val == "*" || val == "/" || val == "."){
+            let x = document.getElementById("text").value;
+            if (x.charAt(x.length-1) == "+" || x.charAt(x.length-1) == "-" || x.charAt(x.length-1) == "*" || x.charAt(x.length-1) == "/" || x.charAt(x.length-1) == ".") document.getElementById("text").value = x.substr(0, x.length-1) + val;
+            else document.getElementById("text").value += val;
+        } else document.getElementById("text").value += val;
+    }
+    function count(){
+        if(document.getElementById("text").value != ""){
+            let x = document.getElementById("history").value = document.getElementById("text").value;
+            document.getElementById("text").value = eval(x);
+        } else document.getElementById("text").value = 0;
+    }
+    function del(){
+        let x = document.getElementById("text").value, temp = "";
+        for (let i = 0; i < x.length-1; i++) temp += x.charAt(i);
+        document.getElementById("text").value = temp;
+    }
+    function convert(){
+        let x = document.getElementById("text").value;
+        if (x.charAt(x.length-1) == "+" || x.charAt(x.length-1) == "-" || x.charAt(x.length-1) == "*" || x.charAt(x.length-1) == "/" || x.charAt(x.length-1) == "."){
+        } else document.getElementById("text").value *= -1;
+    }   
+    function empty(){
+        document.getElementById("text").value = "";
+        document.getElementById("history").value = "";
+    }
+</script>
+</html>
